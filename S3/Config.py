@@ -51,7 +51,7 @@ class Config(object):
     access_key = u""
     secret_key = u""
     access_token = u""
-    _access_token_refresh = True
+    access_token_refresh = True
     host_base = u"s3.amazonaws.com"
     host_bucket = u"%(bucket)s.s3.amazonaws.com"
     kms_key = u""    #can't set this and Server Side Encryption at the same time
@@ -184,7 +184,7 @@ class Config(object):
             if access_token:
                 self.access_token = access_token
                 # Do not refresh the IAM role when an access token is provided.
-                self._access_token_refresh = False
+                self.access_token_refresh = False
 
             if len(self.access_key)==0:
                 env_access_key = os.getenv('AWS_ACCESS_KEY') or os.getenv('AWS_ACCESS_KEY_ID')
@@ -196,7 +196,7 @@ class Config(object):
                     self.secret_key = config_unicodise(env_secret_key)
                     if env_access_token:
                         # Do not refresh the IAM role when an access token is provided.
-                        self._access_token_refresh = False
+                        self.access_token_refresh = False
                         self.access_token = config_unicodise(env_access_token)
                 else:
                     self.role_config()
@@ -232,7 +232,7 @@ class Config(object):
             raise
 
     def role_refresh(self):
-        if self._access_token_refresh:
+        if self.access_token_refresh:
             try:
                 self.role_config()
             except:
