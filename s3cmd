@@ -1194,7 +1194,7 @@ def cmd_sync_remote2local(args):
     # with the content of this folder
     destbase_with_source_list = set()
     for source_arg in fetch_source_args:
-        if source_arg.endswith('/'):
+        if True or source_arg.endswith('/'):
             if destination_base.endswith(os.path.sep):
                 destbase_with_source_list.add(destination_base)
             else:
